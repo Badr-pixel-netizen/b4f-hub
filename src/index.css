@@ -1,0 +1,673 @@
+:root {
+  --color-text: #1e2130;
+  --color-text-muted: #69708b;
+  --color-text-subtle: #7e859c;
+  --color-text-faint: #9aa0b4;
+  --color-text-light: #9da3b6;
+  --color-text-secondary: #4b5165;
+  --color-text-body: #333750;
+  --color-text-tag: #5a6178;
+  --color-text-disabled: #c7cad6;
+  --color-white: #fff;
+  --color-page: #f5f6fb;
+  --color-border: #d8dbe7;
+  --color-border-panel: #e0e2eb;
+  --color-border-footer: #dfe2eb;
+  --color-border-subtle: #eef0f6;
+  --color-border-chip: #e5e7f0;
+  --color-accent: #5045e8;
+  --color-danger: #c0392b;
+  --color-danger-soft: #fde2e2;
+  --color-danger-muted: #fdeeee;
+  --color-danger-border: #f3c2c2;
+  --color-info: #1d4ed8;
+  --color-info-soft: #dbeafe;
+  --color-success: #15803d;
+  --color-success-soft: #dcfce7;
+  --color-accent-soft: #ece9fd;
+  --color-tag: #f2f3f8;
+  --color-warning: #f5a524;
+  --color-toast-muted: #b9bccb;
+  --color-toast-shadow: rgba(20, 20, 40, 0.18);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--color-text);
+  line-height: 1.5;
+  background: var(--color-page);
+}
+
+.root {
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  z-index: 2;
+}
+
+.brand-mark {
+  padding: 3px 5px;
+  border-radius: 4px;
+  color: var(--color-white);
+  background: var(--color-accent);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.header strong {
+  font-size: 12px;
+}
+.header p {
+  color: var(--color-text-muted);
+  font-size: 9px;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  padding: 14px 16px;
+}
+
+.panel {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--color-border-panel);
+  border-radius: 9px;
+  background: var(--color-white);
+}
+
+.panel h2 {
+  margin: 0;
+  font-size: 12px;
+}
+
+footer {
+  height: 40px;
+  padding: 7px;
+  border: 1px solid var(--color-border-footer);
+  color: var(--color-text-subtle);
+  background: var(--color-white);
+  text-align: center;
+  font-size: 8px;
+  z-index: 2;
+}
+
+footer span {
+  color: var(--color-text-light);
+  font-size: 7px;
+}
+
+/* ---------- Desktop: fixed navbar/footer + independently-scrolling panels ---------- */
+@media (min-width: 701px) {
+  html,
+  body {
+    height: 100%;
+  }
+
+  .root {
+    padding: 40px 0;
+  }
+
+  header {
+    position: fixed;
+    inset: 0 0 auto;
+  }
+
+  footer {
+    position: fixed;
+    inset: auto 0 0;
+  }
+
+  .main-container {
+    height: calc(100vh - 80px);
+    overflow: hidden;
+  }
+
+  .panel {
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+
+/* ---------- Mobile: normal document flow, everything scrolls together ---------- */
+@media (max-width: 700px) {
+  .main-container {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+}
+
+/* ---------- Community: layout ---------- */
+.panel.community {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---------- Compose form ---------- */
+.compose-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.compose-textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 60px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 12px;
+}
+
+.compose-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.compose-select {
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 12px;
+  background: var(--color-white);
+}
+
+.post-button {
+  padding: 7px 18px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.post-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-error {
+  color: var(--color-danger);
+  font-size: 11px;
+  margin: 0;
+}
+
+/* ---------- Filters ---------- */
+.post-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: 10px;
+}
+
+.category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.chip.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+}
+
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.liked-only-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.results-count {
+  font-size: 10.5px;
+  color: var(--color-text-faint);
+  margin: 0;
+}
+
+/* ---------- Feed + cards ---------- */
+.post-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.status-message {
+  padding: 20px 10px;
+  text-align: center;
+  color: var(--color-text-subtle);
+  font-size: 12px;
+}
+
+.status-message.error {
+  color: var(--color-danger);
+}
+
+.status-message.error button {
+  margin-top: 8px;
+  padding: 5px 14px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.post-card {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.post-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.post-meta {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.post-author {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.post-time {
+  font-size: 10px;
+  color: var(--color-text-faint);
+}
+
+.badge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.badge-announcement {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+.badge-event {
+  background: var(--color-info-soft);
+  color: var(--color-info);
+}
+.badge-community {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+.badge-resource {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.post-content {
+  font-size: 12px;
+  color: var(--color-text-body);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.like-button {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.like-button.liked {
+  border-color: var(--color-danger-border);
+  background: var(--color-danger-muted);
+  color: var(--color-danger);
+}
+
+.like-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.like-count {
+  color: var(--color-text-faint);
+}
+
+.like-button.liked .like-count {
+  color: var(--color-danger);
+}
+
+/* ---------- Opportunities: layout ---------- */
+.panel.opportunities {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.opportunity-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 11px;
+  background: var(--color-white);
+  color: var(--color-text-secondary);
+}
+
+.opportunity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.opportunity-card {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.opportunity-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.opportunity-logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: var(--color-warning);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.opportunity-title-block {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.opportunity-title {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.opportunity-company {
+  font-size: 10.5px;
+  color: var(--color-text-faint);
+}
+
+.save-toggle {
+  border: none;
+  background: none;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--color-text-disabled);
+  cursor: pointer;
+  padding: 2px;
+}
+
+.save-toggle.saved {
+  color: var(--color-warning);
+}
+
+.opportunity-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.badge-type-job {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+.badge-type-internship {
+  background: var(--color-info-soft);
+  color: var(--color-info);
+}
+.badge-type-scholarship {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+.badge-type-volunteer {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.tag {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 5px;
+  background: var(--color-tag);
+  color: var(--color-text-tag);
+  white-space: nowrap;
+}
+
+.opportunity-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.skill-chip {
+  font-size: 9.5px;
+  padding: 3px 8px;
+  border: 1px solid var(--color-border-chip);
+  border-radius: 5px;
+  color: var(--color-text-tag);
+  white-space: nowrap;
+}
+
+.opportunity-detail {
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.back-link {
+  align-self: flex-start;
+  border: none;
+  background: none;
+  color: var(--color-accent);
+  font-size: 10.5px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.opportunity-description {
+  font-size: 11.5px;
+  color: var(--color-text-body);
+}
+
+.opportunity-deadline {
+  font-size: 10.5px;
+  color: var(--color-text-faint);
+}
+
+.opportunity-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.detail-toggle {
+  padding: 6px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-white);
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.apply-button {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.apply-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.apply-button.applied {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+/* ---------- Notification toast (Queue — only the front is ever shown) ---------- */
+.notification-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 56px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  background: var(--color-text);
+  color: var(--color-white);
+  font-size: 11.5px;
+  z-index: 5;
+  box-shadow: 0 6px 16px var(--color-toast-shadow);
+}
+
+.notification-toast.error {
+  background: var(--color-danger);
+}
+
+.notification-more {
+  color: var(--color-toast-muted);
+  font-size: 10px;
+}
+
+.notification-dismiss {
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+@media (max-width: 700px) {
+  .notification-toast {
+    bottom: 16px;
+    max-width: calc(100% - 32px);
+  }
+}
